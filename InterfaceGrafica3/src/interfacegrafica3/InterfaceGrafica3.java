@@ -4,7 +4,13 @@
  */
 package interfacegrafica3;
 
+import interfacegrafica3.model.Pessoa;
+import interfacegrafica3.model.PessoaFisica;
+import interfacegrafica3.model.PessoaJuridica;
 import interfacegrafica3.view.JanelaPrincipal;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +25,6 @@ public class InterfaceGrafica3 {
         JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         janelaPrincipal.setVisible(true);
         janelaPrincipal.setTitle("Cadastro de clientes");
-    }
+    }//método main
     
-}
+}//classe
