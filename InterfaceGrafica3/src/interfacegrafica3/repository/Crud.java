@@ -6,7 +6,7 @@ package interfacegrafica3.repository;
 import java.sql.Connection;
 /**
  *
- * @author Professor
+ * @author gustavo
  */
 public interface Crud<T> {
     public boolean inserir(Connection connection, T entity);

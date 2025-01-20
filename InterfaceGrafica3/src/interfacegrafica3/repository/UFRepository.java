@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Professor
+ * @author gustavo
  */
 public class UFRepository implements Crud<UF>{
 
@@ -36,7 +36,7 @@ public class UFRepository implements Crud<UF>{
             );
             return false;
         }
-        //return false; 
+        
     }
 
     @Override

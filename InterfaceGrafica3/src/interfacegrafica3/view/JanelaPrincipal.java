@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Professor
+ * @author gustavo
  */
 public class JanelaPrincipal extends javax.swing.JFrame {
 
@@ -41,8 +41,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         );
         conexaoMySQL = new ConexaoMySQL(conexao);
         conexaoMySQL.conectar();
-        //Pessoa p = new Pessoa("Pessoa1", "email","end","tel",1);
-        //conexaoMySQL.insert(p);
     }
 
     /**

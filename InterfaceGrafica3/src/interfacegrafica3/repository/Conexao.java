@@ -6,7 +6,7 @@ package interfacegrafica3.repository;
 
 /**
  *
- * @author Professor
+ * @author gustavo
  */
 public class Conexao {
     private String endereco;

@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Professor
+ * @author gustavo
  */
 public class JanelaCadastro extends javax.swing.JInternalFrame {
 
@@ -22,7 +22,6 @@ public class JanelaCadastro extends javax.swing.JInternalFrame {
     public JanelaCadastro(JanelaPrincipal janelaPrincipal) {
         initComponents();
         this.janelaPrincipal = janelaPrincipal;
-        //txtId.setVisible(false); //escondendo txtId
         txtId.setText("0");
     }
 
@@ -180,51 +179,7 @@ public class JanelaCadastro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bntFecharActionPerformed
 
     private void bntGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntGravarActionPerformed
-        /*
-        //verificar o txtId se tem algum valor:
-        if(Integer.parseInt(txtId.getText()) > 0){
-            //atualizar registro
-            int id = Integer.parseInt(txtId.getText());
-            Pessoa pessoa = new Pessoa();
-            pessoa.setNome(txtNome.getText());
-            pessoa.setEndereco(txtEndereco.getText());
-            pessoa.setEmail(txtEmail.getText());
-            pessoa.setTelefone(txtTelefone.getText());
-            pessoa.setId(id);
-            //atualizar o registro da lista:
-            janelaPrincipal.lstPessoa.set(id-1, pessoa);
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Cadastro atualizado com sucesso!",
-                    "Tela de cadastro",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-        }else {
-
-            //estou buscando na janela principal o valor
-            // do meu último ID:
-            int id = janelaPrincipal.ultimoId + 1;
-            Pessoa pessoa = new Pessoa();
-            pessoa.setNome(txtNome.getText());
-            pessoa.setEndereco(txtEndereco.getText());
-            pessoa.setEmail(txtEmail.getText());
-            pessoa.setTelefone(txtTelefone.getText());
-            pessoa.setId(id);
-            //enviar objeto 'pessoa' para o banco de dados lstPessoa
-            // na janela principal
-            janelaPrincipal.lstPessoa.add(pessoa);
-            //incrementar o id na janela principal:
-            janelaPrincipal.ultimoId += 1;
-            //Exibi mensagem de OK
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Cadastro efetuado com sucesso!",
-                    "Tela de cadastro",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-        }
-        */
-        //atualizar registro
+        
         int id = Integer.parseInt(txtId.getText());
         Pessoa pessoa = new Pessoa();
         pessoa.setNome(txtNome.getText());
@@ -253,41 +208,14 @@ public class JanelaCadastro extends javax.swing.JInternalFrame {
                     "Tela de cadastro",
                     JOptionPane.INFORMATION_MESSAGE
             );
-            //limpar a janela
+            
             limparJanela();
-        }        
-        
-        //limpar a janela
-        //limparJanela();
-        
-        /*//fecho a janela de cadastro
-        fecharJanela();*/
+        }
         
     }//GEN-LAST:event_bntGravarActionPerformed
 
     private void btnAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvancarActionPerformed
         // TODO add your handling code here:
-        /*
-        int i = 0;
-        boolean sair = false;
-        limparJanela();
-        while(i < janelaPrincipal.lstPessoa.size() && !sair){
-            Pessoa pessoa = janelaPrincipal.lstPessoa.get(i);
-            if(pessoa.getId() > Integer.parseInt(txtId.getText())){
-                //jogar os dados da pessoa na tela:
-                txtNome.setText(pessoa.getNome());
-                txtEmail.setText(pessoa.getEmail());
-                txtEndereco.setText(pessoa.getEndereco());
-                txtTelefone.setText(pessoa.getTelefone());
-                txtId.setText(String.valueOf(pessoa.getId()));
-                sair = true;
-            }            
-            i++;
-        }
-        if(!sair){
-            limparJanela();
-            txtId.setText("0");
-        }*/
         limparJanela();
         PessoaRepository pessoaRepository = new PessoaRepository();
         Pessoa pessoa = pessoaRepository.selecionar(
@@ -309,27 +237,7 @@ public class JanelaCadastro extends javax.swing.JInternalFrame {
 
     private void btnRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetrocederActionPerformed
         // TODO add your handling code here:
-        /*
-        int i = janelaPrincipal.lstPessoa.size() -1;
-        boolean sair = false;
-        limparJanela();
-        while(i >= 0 && !sair){
-            Pessoa pessoa = janelaPrincipal.lstPessoa.get(i);
-            if(pessoa.getId() < Integer.parseInt(txtId.getText())){
-                //jogar os dados da pessoa na tela:
-                txtNome.setText(pessoa.getNome());
-                txtEmail.setText(pessoa.getEmail());
-                txtEndereco.setText(pessoa.getEndereco());
-                txtTelefone.setText(pessoa.getTelefone());
-                txtId.setText(String.valueOf(pessoa.getId()));
-                sair = true;
-            }            
-            i--;
-        }
-        if(!sair){
-            limparJanela();
-            txtId.setText("0");
-        }*/
+        
         limparJanela();
         PessoaRepository pessoaRepository = new PessoaRepository();
         Pessoa pessoa = pessoaRepository.selecionar(
@@ -361,8 +269,6 @@ public class JanelaCadastro extends javax.swing.JInternalFrame {
             if(resposta == JOptionPane.YES_OPTION){
                 //excluir registro:
                 int id = Integer.parseInt(txtId.getText());
-                //janelaPrincipal.lstPessoa.remove(id-1);
-                //janelaPrincipal.ultimoId -=1;
                 Pessoa pessoa = new Pessoa();
                 pessoa.setId(id);
                 PessoaRepository pessoaRepository = new PessoaRepository();

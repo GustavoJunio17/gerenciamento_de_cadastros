@@ -6,7 +6,7 @@ package interfacegrafica3.model;
 
 /**
  *
- * @author Professor
+ * @author gustavo
  */
 public class UF {
     private String nome;

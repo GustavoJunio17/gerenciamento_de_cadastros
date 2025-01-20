@@ -14,35 +14,40 @@ import javax.swing.JOptionPane;
  *
  * @author gustavo
  */
-public class PessoaRepository implements Crud<Pessoa> {
-    ;
+public class FornecedorRepository implements Crud<Fornecedor>{
     
-    public PessoaRepository(){
+    public FornecedorRepository(){
         
     }
 
-    public Pessoa selecionar(int id){
+    public Fornecedor selecionar(int id){
         return null;
     }
     
     @Override
-    public boolean inserir(Connection connection, Pessoa pessoa) {
+    public boolean inserir(Connection connection, Fornecedor fornecedor) {
         PreparedStatement stmt = null;
         try{
-            String comando = "INSERT INTO cadastro_pessoa(nome, endereco, email, telefone) " +
-                             "VALUES(?, ?, ?, ?)";
+            String comando = "INSERT INTO fornecedor(nome, email, endereco, uf, telefone, cnpj, inscricao_estadual, nome_fantasia, categoria) " +
+                             "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             stmt = connection.prepareStatement(comando);
-            stmt.setString(1, pessoa.getNome());
-            stmt.setString(2, pessoa.getEndereco());
-            stmt.setString(3, pessoa.getEmail());
-            stmt.setString(4, pessoa.getTelefone());
+            stmt.setString(1, fornecedor.getNome());
+            stmt.setString(2, fornecedor.getEmail());
+            stmt.setString(3, fornecedor.getEndereco());
+            stmt.setString(4, fornecedor.getUF());
+            stmt.setString(5, fornecedor.getTelefone());
+            stmt.setString(6, fornecedor.getCNPJ());
+            stmt.setString(7, fornecedor.getInscricaoEstadual());
+            stmt.setString(8, fornecedor.getNomeFantasia());
+            stmt.setString(9, fornecedor.getCategoria());
+            
             stmt.executeUpdate();
             stmt.close();
             return true;
         }catch(Exception ex){
             JOptionPane.showMessageDialog(
                     null,
-                    "Erro ao inserir pessoa: " + ex.getMessage(),
+                    "Erro ao inserir fornecedor: " + ex.getMessage(),
                     "Erro ao inserir",
                     JOptionPane.ERROR_MESSAGE
             );
@@ -51,25 +56,30 @@ public class PessoaRepository implements Crud<Pessoa> {
     }
     
     @Override
-    public boolean atualizar(Connection connection, Pessoa pessoa) {
+    public boolean atualizar(Connection connection, Fornecedor fornecedor) {
         PreparedStatement stmt = null;
         try{
-            String comando = "UPDATE cadastro_pessoa SET " +
-                             "nome = ?, endereco = ?, email = ?, telefone = ? " +
+            String comando = "UPDATE fornecedor SET " +
+                             "nome = ?, email = ?, endereco = ?, uf = ?, telefone = ?, cnpj = ?, inscricao_estadual = ?, nome_fantasia = ?, categoria = ? " +
                              "WHERE id = ?";
             stmt = connection.prepareStatement(comando);
-            stmt.setString(1, pessoa.getNome());
-            stmt.setString(2, pessoa.getEndereco());
-            stmt.setString(3, pessoa.getEmail());
-            stmt.setString(4, pessoa.getTelefone());
-            stmt.setInt(5, pessoa.getId());
+            stmt.setString(1, fornecedor.getNome());
+            stmt.setString(2, fornecedor.getEmail());
+            stmt.setString(3, fornecedor.getEndereco());
+            stmt.setString(4, fornecedor.getUF());
+            stmt.setString(5, fornecedor.getTelefone());
+            stmt.setString(6, fornecedor.getCNPJ());
+            stmt.setString(7, fornecedor.getInscricaoEstadual());
+            stmt.setString(8, fornecedor.getNomeFantasia());
+            stmt.setString(9, fornecedor.getCategoria());
+            stmt.setInt(10, fornecedor.getId());
             stmt.executeUpdate();
             stmt.close();
             return true;
         }catch(Exception ex){
             JOptionPane.showMessageDialog(
                     null,
-                    "Erro ao atualizar pessoa: " + ex.getMessage(),
+                    "Erro ao atualizar fornecedor: " + ex.getMessage(),
                     "Erro ao atualizar",
                     JOptionPane.ERROR_MESSAGE
             );
@@ -127,5 +137,5 @@ public class PessoaRepository implements Crud<Pessoa> {
             return null;
         }
     }
-        
+    
 }

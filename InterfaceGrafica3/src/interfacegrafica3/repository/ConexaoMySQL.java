@@ -9,9 +9,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+
 /**
  *
- * @author Professor
+ * @author gustavo
  */
 public class ConexaoMySQL {
     private Conexao conexao = null;
@@ -45,7 +46,7 @@ public class ConexaoMySQL {
                         JOptionPane.ERROR_MESSAGE
                 ); 
                 return false;
-            } //catch
+            }
         }else{
             return false;
         }
