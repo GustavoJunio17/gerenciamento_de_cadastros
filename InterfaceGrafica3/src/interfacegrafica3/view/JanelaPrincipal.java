@@ -35,7 +35,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         conexao = new Conexao(
                 "localhost",
                 "root",
-                "",
+                "admin",
                 3306,
                 "cadastro"
         );

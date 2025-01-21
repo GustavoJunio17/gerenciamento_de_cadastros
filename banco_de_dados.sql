@@ -1,29 +1,29 @@
-CREATE Database cadastro_fornecedor;
+CREATE DATABASE cadastro;
 
-USE cadastro_fornecedor;
+USE cadastro;
 
-CREATE TABLE uf (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    uf VARCHAR(2) UNIQUE);
+CREATE TABLE `cadastro`.`cadastro_pessoa` (
+  `id`       INT          NOT NULL AUTO_INCREMENT COMMENT '',
+  `nome`     VARCHAR(100) NOT NULL                COMMENT '',
+  `endereco` VARCHAR(100) NOT NULL                COMMENT '',
+  `email`    VARCHAR(100)     NULL                COMMENT '',
+  `telefone` VARCHAR(17)      NULL                COMMENT '',
+  PRIMARY KEY (`id`)                              COMMENT '');
+
+CREATE TABLE `cadastro`.`uf` (
+	id    INT         AUTO_INCREMENT PRIMARY KEY COMMENT '',
+    nome  VARCHAR(40) UNIQUE                     COMMENT '',
+    sigla VARCHAR(2)  UNIQUE                     COMMENT '');
     
-CREATE TABLE fornecedor (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    endereco VARCHAR(100) NOT NULL,
-    uf VARCHAR(2) NOT NULL,
-    telefone VARCHAR(11) NOT NULL,
-    cnpj VARCHAR(13) NOT NULL,
-    inscricao_estadual VARCHAR(30) NOT NULL,
-    nome_fantasia VARCHAR(100) NOT NULL,
-    categoria VARCHAR(100) NOT NULL,
-    FOREIGN KEY (uf) REFERENCES uf(uf));
-    
-INSERT INTO uf (uf) VALUES ('SP'), ('RJ'), ('MG'), ('ES'), ('BA');
-
-INSERT INTO fornecedor (nome, email, endereco, uf, telefone, cnpj, inscricao_estadual, nome_fantasia, categoria)
-VALUES ('Empresa X', 'email@exemplo.com', 'Rua A, 123', 'XX', '12345678901', '1234567890123', '1234567890', 'Empresa Fantasia', 'Tecnologia');
-
-INSERT INTO fornecedor (nome, email, endereco, uf, telefone, cnpj, inscricao_estadual, nome_fantasia, categoria)
-VALUES ('Empresa X', 'email@exemplo.com', 'Rua A, 123', 'SP', '12345678901', '1234567890123', '1234567890', 'Empresa Fantasia', 'Tecnologia');
-
+CREATE TABLE `cadastro`.`cadastro_fornecedor` (
+	id                 INT          AUTO_INCREMENT PRIMARY KEY COMMENT '', 
+    nome               VARCHAR(100) NOT NULL                   COMMENT '',
+    email              VARCHAR(100) UNIQUE NOT NULL            COMMENT '',
+    endereco           VARCHAR(100) NOT NULL                   COMMENT '',
+    uf                 VARCHAR(2)   NOT NULL                   COMMENT '',
+    telefone           VARCHAR(11)  NOT NULL                   COMMENT '',
+    cnpj               VARCHAR(13)  NOT NULL                   COMMENT '',
+    inscricao_estadual VARCHAR(30)  NOT NULL                   COMMENT '',
+    nome_fantasia      VARCHAR(100) NOT NULL                   COMMENT '',
+    categoria          VARCHAR(100) NOT NULL                   COMMENT '',
+    FOREIGN KEY (uf)   REFERENCES `uf`(sigla));

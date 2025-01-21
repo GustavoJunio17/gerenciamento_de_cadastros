@@ -4,7 +4,7 @@
  */
 package interfacegrafica3.repository;
 
-import interfacegrafica3.model.Pessoa;
+import interfacegrafica3.model.Fornecedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -88,20 +88,20 @@ public class FornecedorRepository implements Crud<Fornecedor>{
     }
 
     @Override
-    public boolean deletar(Connection connection, Pessoa pessoa) {
+    public boolean deletar(Connection connection, Fornecedor fornecedor) {
         PreparedStatement stmt = null;
         try{
-            String comando = "DELETE FROM cadastro_pessoa " +
+            String comando = "DELETE FROM fornecedor " +
                              "WHERE id = ?";
             stmt = connection.prepareStatement(comando);
-            stmt.setInt(1, pessoa.getId());
+            stmt.setInt(1, fornecedor.getId());
             stmt.executeUpdate();
             stmt.close();
             return true;
         }catch(Exception ex){
             JOptionPane.showMessageDialog(
                     null,
-                    "Erro ao excluir pessoa: " + ex.getMessage(),
+                    "Erro ao excluir fornecedor: " + ex.getMessage(),
                     "Erro ao excluir",
                     JOptionPane.ERROR_MESSAGE
             );
@@ -110,11 +110,11 @@ public class FornecedorRepository implements Crud<Fornecedor>{
     }
 
     @Override
-    public Pessoa selecionar(Connection connection, String operador, int id) {
+    public Fornecedor selecionar(Connection connection, String operador, int id) {
         try{
-            Pessoa pessoa = new Pessoa();
+            Fornecedor fornecedor = new Fornecedor();
             PreparedStatement stmt = null;
-            String comando = "SELECT * FROM cadastro_pessoa WHERE id " + 
+            String comando = "SELECT * FROM fornecedor WHERE id " + 
                              operador + " ? ";
             if(operador.equals("<"))
                 comando += " ORDER BY id DESC";
@@ -123,15 +123,21 @@ public class FornecedorRepository implements Crud<Fornecedor>{
             ResultSet res = stmt.executeQuery();
             if(res != null){
                 while(res.next()){
-                    pessoa.setId(Integer.parseInt(res.getString("id") ));
-                    pessoa.setNome(res.getString("nome"));
-                    pessoa.setEndereco(res.getString("endereco"));
-                    pessoa.setTelefone(res.getString("telefone"));
-                    pessoa.setEmail(res.getString("email"));                    
+                    fornecedor.setId(Integer.parseInt(res.getString("id") ));
+                    fornecedor.setNome(res.getString("nome"));
+                    fornecedor.setEmail(res.getString("email"));
+                    fornecedor.setEndereco(res.getString("endereco"));
+                    fornecedor.setUF(res.getString("uf"));
+                    fornecedor.setTelefone(res.getString("telefone"));      
+                    fornecedor.setCNPJ(res.getString("cnpj"));      
+                    fornecedor.setInscricaoEstadual(res.getString("inscricao_estadual"));      
+                    fornecedor.setNomeFantasia(res.getString("nome_fantasia"));      
+                    fornecedor.setCategoria(res.getString("categoria"));      
+                    
                     break;
                 }
             }
-            return pessoa;
+            return fornecedor;
         }catch(Exception ex){
             
             return null;

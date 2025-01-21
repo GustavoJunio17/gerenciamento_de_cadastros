@@ -328,13 +328,4 @@ public class JanelaCadastro extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 
-    private void atualizaIdLista() {
-        int id = 0;
-        for(int i = 0; i < janelaPrincipal.lstPessoa.size(); i++){
-            id = i+1;
-            Pessoa pessoa = janelaPrincipal.lstPessoa.get(i);
-            pessoa.setId(id);
-            janelaPrincipal.lstPessoa.set(i, pessoa);
-        }
-    }
 }
