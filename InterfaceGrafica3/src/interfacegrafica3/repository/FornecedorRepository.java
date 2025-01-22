@@ -5,6 +5,7 @@
 package interfacegrafica3.repository;
 
 import interfacegrafica3.model.Fornecedor;
+import interfacegrafica3.model.PessoaJuridica;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author gustavo
  */
-public class FornecedorRepository implements Crud<Fornecedor>{
+public class FornecedorRepository implements Crud<PessoaJuridica>{
     
     public FornecedorRepository(){
         
@@ -25,18 +26,18 @@ public class FornecedorRepository implements Crud<Fornecedor>{
     }
     
     @Override
-    public boolean inserir(Connection connection, Fornecedor fornecedor) {
+    public boolean inserir(Connection connection, PessoaJuridica fornecedor) {
         PreparedStatement stmt = null;
         try{
-            String comando = "INSERT INTO fornecedor(nome, email, endereco, uf, telefone, cnpj, inscricao_estadual, nome_fantasia, categoria) " +
+            String comando = "INSERT INTO cadastro_fornecedor(nome, email, endereco, uf, telefone, cnpj, inscricao_estadual, nome_fantasia, categoria) " +
                              "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             stmt = connection.prepareStatement(comando);
             stmt.setString(1, fornecedor.getNome());
             stmt.setString(2, fornecedor.getEmail());
             stmt.setString(3, fornecedor.getEndereco());
-            stmt.setString(4, fornecedor.getUF());
+            stmt.setString(4, fornecedor.getSigla());
             stmt.setString(5, fornecedor.getTelefone());
-            stmt.setString(6, fornecedor.getCNPJ());
+            stmt.setString(6, fornecedor.getCnpj());
             stmt.setString(7, fornecedor.getInscricaoEstadual());
             stmt.setString(8, fornecedor.getNomeFantasia());
             stmt.setString(9, fornecedor.getCategoria());
@@ -56,19 +57,19 @@ public class FornecedorRepository implements Crud<Fornecedor>{
     }
     
     @Override
-    public boolean atualizar(Connection connection, Fornecedor fornecedor) {
+    public boolean atualizar(Connection connection, PessoaJuridica fornecedor) {
         PreparedStatement stmt = null;
         try{
-            String comando = "UPDATE fornecedor SET " +
+            String comando = "UPDATE cadastro_fornecedor SET " +
                              "nome = ?, email = ?, endereco = ?, uf = ?, telefone = ?, cnpj = ?, inscricao_estadual = ?, nome_fantasia = ?, categoria = ? " +
                              "WHERE id = ?";
             stmt = connection.prepareStatement(comando);
             stmt.setString(1, fornecedor.getNome());
             stmt.setString(2, fornecedor.getEmail());
             stmt.setString(3, fornecedor.getEndereco());
-            stmt.setString(4, fornecedor.getUF());
+            stmt.setString(4, fornecedor.getSigla());
             stmt.setString(5, fornecedor.getTelefone());
-            stmt.setString(6, fornecedor.getCNPJ());
+            stmt.setString(6, fornecedor.getCnpj());
             stmt.setString(7, fornecedor.getInscricaoEstadual());
             stmt.setString(8, fornecedor.getNomeFantasia());
             stmt.setString(9, fornecedor.getCategoria());
@@ -88,10 +89,10 @@ public class FornecedorRepository implements Crud<Fornecedor>{
     }
 
     @Override
-    public boolean deletar(Connection connection, Fornecedor fornecedor) {
+    public boolean deletar(Connection connection, PessoaJuridica fornecedor) {
         PreparedStatement stmt = null;
         try{
-            String comando = "DELETE FROM fornecedor " +
+            String comando = "DELETE FROM cadastro_fornecedor " +
                              "WHERE id = ?";
             stmt = connection.prepareStatement(comando);
             stmt.setInt(1, fornecedor.getId());
@@ -110,11 +111,11 @@ public class FornecedorRepository implements Crud<Fornecedor>{
     }
 
     @Override
-    public Fornecedor selecionar(Connection connection, String operador, int id) {
+    public PessoaJuridica selecionar(Connection connection, String operador, int id) {
         try{
-            Fornecedor fornecedor = new Fornecedor();
+            PessoaJuridica fornecedor = new PessoaJuridica();
             PreparedStatement stmt = null;
-            String comando = "SELECT * FROM fornecedor WHERE id " + 
+            String comando = "SELECT * FROM cadastro_fornecedor WHERE id " + 
                              operador + " ? ";
             if(operador.equals("<"))
                 comando += " ORDER BY id DESC";
@@ -127,9 +128,9 @@ public class FornecedorRepository implements Crud<Fornecedor>{
                     fornecedor.setNome(res.getString("nome"));
                     fornecedor.setEmail(res.getString("email"));
                     fornecedor.setEndereco(res.getString("endereco"));
-                    fornecedor.setUF(res.getString("uf"));
+                    fornecedor.setSigla(res.getString("uf"));
                     fornecedor.setTelefone(res.getString("telefone"));      
-                    fornecedor.setCNPJ(res.getString("cnpj"));      
+                    fornecedor.setCnpj(res.getString("cnpj"));      
                     fornecedor.setInscricaoEstadual(res.getString("inscricao_estadual"));      
                     fornecedor.setNomeFantasia(res.getString("nome_fantasia"));      
                     fornecedor.setCategoria(res.getString("categoria"));      

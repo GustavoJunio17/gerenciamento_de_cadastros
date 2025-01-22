@@ -4,13 +4,17 @@
  */
 package interfacegrafica3.view;
 
+import interfacegrafica3.model.Pessoa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import interfacegrafica3.model.Pessoa;
+import interfacegrafica3.model.PessoaJuridica;
+import interfacegrafica3.model.UF;
 import interfacegrafica3.repository.FornecedorRepository;
 import interfacegrafica3.repository.PessoaRepository;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -21,16 +25,35 @@ public class JanelaCadastroFornecedor extends javax.swing.JInternalFrame {
 
     private static JanelaCadastroFornecedor instancia;
     private JanelaPrincipal janelaPrincipal;
+    
     /**
      * Creates new form JanelaCadastroFornecedor
      */
     public JanelaCadastroFornecedor(JanelaPrincipal janelaPrincipal) {
         initComponents();
         this.janelaPrincipal = janelaPrincipal;
+        carregarUFs(janelaPrincipal.conexaoMySQL.connection);
         txtId.setText("0");
+        
     }
     
-   
+    private void carregarUFs(Connection connection) {
+    try (
+         PreparedStatement stmt = connection.prepareStatement("SELECT sigla FROM uf"); 
+         ResultSet rs = stmt.executeQuery()) {
+
+        cbUF.removeAllItems();
+
+        while (rs.next()) {
+            String nomeUF = rs.getString("sigla");
+            cbUF.addItem(nomeUF);
+        }
+        cbUF.setSelectedIndex(-1);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro ao carregar UFs: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,6 +124,7 @@ public class JanelaCadastroFornecedor extends javax.swing.JInternalFrame {
         jLabel9.setText("Categoria:");
 
         cbUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbUF.setSelectedIndex(-1);
         cbUF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbUFActionPerformed(evt);
@@ -273,19 +297,20 @@ public class JanelaCadastroFornecedor extends javax.swing.JInternalFrame {
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         // TODO add your handling code here:
+        fecharJanela();
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         // TODO add your handling code here:
         int id = Integer.parseInt(txtId.getText());
-        Fornecedor fornecedor = Fornecedor();
+        PessoaJuridica fornecedor = new PessoaJuridica();
         fornecedor.setNome(txtNome.getText());
         fornecedor.setEmail(txtEmail.getText());
         fornecedor.setEndereco(txtEndereco.getText());
-        fornecedor.setUf(cbUF.getSelectedItem().toString());
+        fornecedor.setSigla(cbUF.getSelectedItem().toString());
         fornecedor.setTelefone(txtTelefone.getText());
-        fornecedor.setCNPJ(txtCNPJ.getText());
-        fornecedor.setInsscricaoEstadual(txtInscricaoEstadual.getText());
+        fornecedor.setCnpj(txtCNPJ.getText());
+        fornecedor.setInscricaoEstadual(txtInscricaoEstadual.getText());
         fornecedor.setNomeFantasia(txtNomeFantasia.getText());
         fornecedor.setCategoria(txtCategoria.getText());
         fornecedor.setId(id);
@@ -317,14 +342,89 @@ public class JanelaCadastroFornecedor extends javax.swing.JInternalFrame {
 
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
         // TODO add your handling code here:
+        limparJanela();
+        FornecedorRepository fornecedorRepository = new FornecedorRepository();
+        PessoaJuridica fornecedor = fornecedorRepository.selecionar(
+                janelaPrincipal.conexaoMySQL.connection, 
+                ">", 
+                Integer.parseInt(txtId.getText()));
+        if(fornecedor != null){
+            //jogar os dados da pessoa na tela:
+            txtNome.setText(fornecedor.getNome());
+            txtEmail.setText(fornecedor.getEmail());
+            txtEndereco.setText(fornecedor.getEndereco());
+            txtTelefone.setText(fornecedor.getTelefone());
+            txtCNPJ.setText(fornecedor.getCnpj());
+            txtInscricaoEstadual.setText(fornecedor.getInscricaoEstadual());
+            txtNomeFantasia.setText(fornecedor.getNomeFantasia());
+            txtCategoria.setText(fornecedor.getCategoria());
+            txtId.setText(String.valueOf(fornecedor.getId()));
+            cbUF.setSelectedItem(fornecedor.getSigla());
+        }else{
+            limparJanela();
+            txtId.setText("0");
+        }
     }//GEN-LAST:event_btnProximoActionPerformed
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         // TODO add your handling code here:
+        limparJanela();
+        FornecedorRepository fornecedorRepository = new FornecedorRepository();
+        PessoaJuridica fornecedor = fornecedorRepository.selecionar(
+                janelaPrincipal.conexaoMySQL.connection, 
+                "<", 
+                Integer.parseInt(txtId.getText()));
+        if(fornecedor != null){
+            //jogar os dados da pessoa na tela:
+            txtNome.setText(fornecedor.getNome());
+            txtEmail.setText(fornecedor.getEmail());
+            txtEndereco.setText(fornecedor.getEndereco());
+            txtTelefone.setText(fornecedor.getTelefone());
+            txtCNPJ.setText(fornecedor.getCnpj());
+            txtInscricaoEstadual.setText(fornecedor.getInscricaoEstadual());
+            txtNomeFantasia.setText(fornecedor.getNomeFantasia());
+            txtCategoria.setText(fornecedor.getCategoria());
+            txtId.setText(String.valueOf(fornecedor.getId()));
+            cbUF.setSelectedItem(fornecedor.getSigla());
+        }else{
+            limparJanela();
+            txtId.setText("0");
+        }
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
+        if(Integer.parseInt(txtId.getText()) > 0){
+            int resposta = JOptionPane.showConfirmDialog(
+                    this,
+                    "Deseja realmente excluir esse registro?",
+                    "Excluir?",
+                    JOptionPane.YES_NO_OPTION
+            );
+            if(resposta == JOptionPane.YES_OPTION){
+                //excluir registro:
+                int id = Integer.parseInt(txtId.getText());
+                PessoaJuridica fornecedor = new PessoaJuridica();
+                fornecedor.setId(id);
+                FornecedorRepository fornecedorRepository = new FornecedorRepository();
+                boolean retornoBanco = fornecedorRepository.deletar(
+                        janelaPrincipal.conexaoMySQL.connection,
+                        fornecedor
+                );
+                if(retornoBanco){
+                    limparJanela();
+                    txtId.setText("0");
+                    //atualizaIdLista();
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Registro excluído com sucesso!",
+                            "Tela de cadastro",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }                
+                
+            }            
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void cbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUFActionPerformed
