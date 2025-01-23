@@ -5,7 +5,6 @@
 package interfacegrafica3.repository;
 
 import interfacegrafica3.model.Fornecedor;
-import interfacegrafica3.model.PessoaJuridica;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author gustavo
  */
-public class FornecedorRepository implements Crud<PessoaJuridica>{
+public class FornecedorRepository implements Crud<Fornecedor>{
     
     public FornecedorRepository(){
         
@@ -26,7 +25,7 @@ public class FornecedorRepository implements Crud<PessoaJuridica>{
     }
     
     @Override
-    public boolean inserir(Connection connection, PessoaJuridica fornecedor) {
+    public boolean inserir(Connection connection, Fornecedor fornecedor) {
         PreparedStatement stmt = null;
         try{
             String comando = "INSERT INTO cadastro_fornecedor(nome, email, endereco, uf, telefone, cnpj, inscricao_estadual, nome_fantasia, categoria) " +
@@ -57,7 +56,7 @@ public class FornecedorRepository implements Crud<PessoaJuridica>{
     }
     
     @Override
-    public boolean atualizar(Connection connection, PessoaJuridica fornecedor) {
+    public boolean atualizar(Connection connection, Fornecedor fornecedor) {
         PreparedStatement stmt = null;
         try{
             String comando = "UPDATE cadastro_fornecedor SET " +
@@ -89,7 +88,7 @@ public class FornecedorRepository implements Crud<PessoaJuridica>{
     }
 
     @Override
-    public boolean deletar(Connection connection, PessoaJuridica fornecedor) {
+    public boolean deletar(Connection connection, Fornecedor fornecedor) {
         PreparedStatement stmt = null;
         try{
             String comando = "DELETE FROM cadastro_fornecedor " +
@@ -111,9 +110,9 @@ public class FornecedorRepository implements Crud<PessoaJuridica>{
     }
 
     @Override
-    public PessoaJuridica selecionar(Connection connection, String operador, int id) {
+    public Fornecedor selecionar(Connection connection, String operador, int id) {
         try{
-            PessoaJuridica fornecedor = new PessoaJuridica();
+            Fornecedor fornecedor = new Fornecedor();
             PreparedStatement stmt = null;
             String comando = "SELECT * FROM cadastro_fornecedor WHERE id " + 
                              operador + " ? ";

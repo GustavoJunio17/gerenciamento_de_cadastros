@@ -4,17 +4,12 @@
  */
 package interfacegrafica3.view;
 
-import interfacegrafica3.model.Pessoa;
+import interfacegrafica3.model.Fornecedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import interfacegrafica3.model.PessoaJuridica;
-import interfacegrafica3.model.UF;
 import interfacegrafica3.repository.FornecedorRepository;
-import interfacegrafica3.repository.PessoaRepository;
-import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -303,7 +298,7 @@ public class JanelaCadastroFornecedor extends javax.swing.JInternalFrame {
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         // TODO add your handling code here:
         int id = Integer.parseInt(txtId.getText());
-        PessoaJuridica fornecedor = new PessoaJuridica();
+        Fornecedor fornecedor = new Fornecedor();
         fornecedor.setNome(txtNome.getText());
         fornecedor.setEmail(txtEmail.getText());
         fornecedor.setEndereco(txtEndereco.getText());
@@ -344,7 +339,7 @@ public class JanelaCadastroFornecedor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         limparJanela();
         FornecedorRepository fornecedorRepository = new FornecedorRepository();
-        PessoaJuridica fornecedor = fornecedorRepository.selecionar(
+        Fornecedor fornecedor = fornecedorRepository.selecionar(
                 janelaPrincipal.conexaoMySQL.connection, 
                 ">", 
                 Integer.parseInt(txtId.getText()));
@@ -370,7 +365,7 @@ public class JanelaCadastroFornecedor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         limparJanela();
         FornecedorRepository fornecedorRepository = new FornecedorRepository();
-        PessoaJuridica fornecedor = fornecedorRepository.selecionar(
+        Fornecedor fornecedor = fornecedorRepository.selecionar(
                 janelaPrincipal.conexaoMySQL.connection, 
                 "<", 
                 Integer.parseInt(txtId.getText()));
@@ -404,7 +399,7 @@ public class JanelaCadastroFornecedor extends javax.swing.JInternalFrame {
             if(resposta == JOptionPane.YES_OPTION){
                 //excluir registro:
                 int id = Integer.parseInt(txtId.getText());
-                PessoaJuridica fornecedor = new PessoaJuridica();
+                Fornecedor fornecedor = new Fornecedor();
                 fornecedor.setId(id);
                 FornecedorRepository fornecedorRepository = new FornecedorRepository();
                 boolean retornoBanco = fornecedorRepository.deletar(

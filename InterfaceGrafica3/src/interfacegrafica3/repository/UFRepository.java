@@ -119,7 +119,7 @@ public class UFRepository implements Crud<UF>{
             List<UF> cadastroUf = new ArrayList<>();
             PreparedStatement stmt = null;
             
-            String comando = "SELECT * FROM uf";
+            String comando = "SELECT * FROM uf ORDER BY nome DESC";
             
             stmt = connection.prepareStatement(comando);
             ResultSet res = stmt.executeQuery();

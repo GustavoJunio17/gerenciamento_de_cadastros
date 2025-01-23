@@ -88,6 +88,8 @@ public class JanelaCadastro extends javax.swing.JInternalFrame {
             }
         });
 
+        txtId.setEditable(false);
+
         bntDeletar.setText("Excluir");
         bntDeletar.setToolTipText("");
         bntDeletar.addActionListener(new java.awt.event.ActionListener() {

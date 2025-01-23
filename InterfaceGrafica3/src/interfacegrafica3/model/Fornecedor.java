@@ -8,7 +8,7 @@ package interfacegrafica3.model;
  *
  * @author gustavo
  */
-public class Fornecedor extends UF{
+public class Fornecedor extends PessoaJuridica{
     private int idFornecedor;
     private String nomeFornecedor;
     private String email;
@@ -19,8 +19,8 @@ public class Fornecedor extends UF{
     public Fornecedor() {
     }
 
-    public Fornecedor(int idFornecedor, String nomeFornecedor, String email, String endereco, String telefone, String categoria, String nome, String sigla, int id) {
-        super(nome, sigla, id);
+    public Fornecedor(int idFornecedor, String nomeFornecedor, String email, String endereco, String telefone, String categoria, String cnpj, String inscricaoEstadual, String nomeFantasia, String nome, String sigla, int id) {
+        super(cnpj, inscricaoEstadual, nomeFantasia, nome, sigla, id);
         this.idFornecedor = idFornecedor;
         this.nomeFornecedor = nomeFornecedor;
         this.email = email;
@@ -76,6 +76,8 @@ public class Fornecedor extends UF{
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+
+    
 
     @Override
     public String toString() {
