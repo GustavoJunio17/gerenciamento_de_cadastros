@@ -18,7 +18,7 @@ CREATE TABLE `cadastro`.`uf` (
 CREATE TABLE `cadastro`.`cadastro_fornecedor` (
 	id                 INT          AUTO_INCREMENT PRIMARY KEY COMMENT '', 
     nome               VARCHAR(100) NOT NULL                   COMMENT '',
-    email              VARCHAR(100) UNIQUE NOT NULL            COMMENT '',
+    email              VARCHAR(100) NOT NULL                   COMMENT '',
     endereco           VARCHAR(100) NOT NULL                   COMMENT '',
     uf                 VARCHAR(2)   NOT NULL                   COMMENT '',
     telefone           VARCHAR(11)  NOT NULL                   COMMENT '',
