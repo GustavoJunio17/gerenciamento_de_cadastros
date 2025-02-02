@@ -7,11 +7,13 @@ import interfacegrafica3.model.UF;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Professor
+ * @author gustavo
  */
 public class UFRepository implements Crud<UF>{
 
@@ -36,7 +38,7 @@ public class UFRepository implements Crud<UF>{
             );
             return false;
         }
-        //return false; 
+        
     }
 
     @Override
@@ -112,5 +114,28 @@ public class UFRepository implements Crud<UF>{
             return null;
         } 
     }
-    
+    public List<UF> selecionarTodos(Connection connection, int id){
+        try{
+            List<UF> cadastroUf = new ArrayList<>();
+            PreparedStatement stmt = null;
+            
+            String comando = "SELECT * FROM uf ORDER BY nome DESC";
+            
+            stmt = connection.prepareStatement(comando);
+            ResultSet res = stmt.executeQuery();
+            
+            while(res.next()){
+                UF uf = new UF();
+                uf.setSigla(res.getString("sigla"));
+                
+                
+                cadastroUf.add(uf);   
+            }
+            return cadastroUf;
+
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
 }

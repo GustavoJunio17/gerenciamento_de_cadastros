@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Professor
+ * @author gustavo
  */
 public class JanelaCadastroUF extends javax.swing.JInternalFrame {
     
@@ -245,7 +245,6 @@ public class JanelaCadastroUF extends javax.swing.JInternalFrame {
                     "Tela de cadastro",
                     JOptionPane.INFORMATION_MESSAGE
             );
-            //limpar a janela
             limparJanela();
         }  
     }//GEN-LAST:event_btnGravarActionPerformed
@@ -262,8 +261,6 @@ public class JanelaCadastroUF extends javax.swing.JInternalFrame {
             if(resposta == JOptionPane.YES_OPTION){
                 //excluir registro:
                 int id = Integer.parseInt(txtId.getText());
-                //janelaPrincipal.lstPessoa.remove(id-1);
-                //janelaPrincipal.ultimoId -=1;
                 UF uf = new UF();
                 uf.setId(id);
                 UFRepository ufRepository = new UFRepository();
@@ -274,7 +271,6 @@ public class JanelaCadastroUF extends javax.swing.JInternalFrame {
                 if(retornoBanco){
                     limparJanela();
                     txtId.setText("0");
-                    //atualizaIdLista();
                     JOptionPane.showMessageDialog(
                             this,
                             "Registro excluído com sucesso!",

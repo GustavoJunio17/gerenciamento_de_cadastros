@@ -5,7 +5,6 @@
 package interfacegrafica3.repository;
 
 import interfacegrafica3.model.Pessoa;
-//import static interfacegrafica3.repository.ConexaoMySQL.connection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,31 +12,19 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Professor
+ * @author gustavo
  */
 public class PessoaRepository implements Crud<Pessoa> {
-    
-    //private Pessoa pessoa;
+    ;
     
     public PessoaRepository(){
-        //this.pessoa = pessoa;
+        
     }
 
-    /*
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }*/
-    
-    //Crud - Selecionar
     public Pessoa selecionar(int id){
         return null;
-    }    
+    }
     
-    //Crud - inserir
     @Override
     public boolean inserir(Connection connection, Pessoa pessoa) {
         PreparedStatement stmt = null;
@@ -61,10 +48,8 @@ public class PessoaRepository implements Crud<Pessoa> {
             );
             return false;
         }
-        //return false;
     }
-
-    //Crud - atualizar
+    
     @Override
     public boolean atualizar(Connection connection, Pessoa pessoa) {
         PreparedStatement stmt = null;
@@ -92,7 +77,6 @@ public class PessoaRepository implements Crud<Pessoa> {
         }        
     }
 
-    //Crud - deletar
     @Override
     public boolean deletar(Connection connection, Pessoa pessoa) {
         PreparedStatement stmt = null;
