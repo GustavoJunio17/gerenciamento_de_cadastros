@@ -5,6 +5,7 @@ Este repositório contém a implementação do cadastro de fornecedores na aplic
 ## Integrantes do Grupo
 
 - Gustavo Junio Ferreira Rodrigues
+- Juan Pablo Botelho
 - Kauan Alexandre Dias Silva
 - Santiago Paiva Rosa Borges
 - Thiago Alves Ramos Oliveira
@@ -16,7 +17,6 @@ Este repositório contém a implementação do cadastro de fornecedores na aplic
 
 2. **Tela de Cadastro de Fornecedor**:
    - Criada uma nova interface gráfica para o cadastro de fornecedores.
-   - 
 
 3. **Modelo de Fornecedor**:
    - Criada a classe `Fornecedor` que estende a classe `PessoaJuridica` e que estende de `Uf`.
